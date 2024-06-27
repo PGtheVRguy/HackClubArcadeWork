@@ -6,6 +6,7 @@ var lay_id = layer_get_id("tiles");
 layer_x(lay_id, 0) //We will use this to reorintate the 0,0 of the world
 layer_y(lay_id, 0)
 
+furthestX = 0
 
 map_id = layer_tilemap_get_id(lay_id);
 
@@ -29,5 +30,5 @@ tilemap_set_at_pixel(map_id, data, ix, iy); //debug spot
 
 
 generateChunk(0, map_id)
-
+show_debug_overlay(true)
 //show_debug_message($"placed tile at x:{_loadEntity.pos_x} y: {_loadEntity.pos_y} with tile of {placeTile}")

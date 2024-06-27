@@ -26,5 +26,5 @@ oMy = mouse_y
 _x = x
 _y = y
 
-moveSpeed = 4
+moveSpeed = 8
 

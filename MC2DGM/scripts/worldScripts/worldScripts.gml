@@ -19,8 +19,20 @@ function generateChunk(_chunkX, map_id){
 	
 	//global.chunks[_chunkX] = _c //sets the main chunks array to hold the chunk
 	
-	updateChunk(map_id, _chunkX)
 	
+	if(_chunkX < furthestX)
+	{
+		furthestX = _chunkX
+		offsetChunks(furthestX)
+	}
+	if(room_width < _chunkX*256)
+	{
+		room_set_width(room, _chunkX*256)
+		room_width = _chunkX*256
+		//room_width = _chunkX*256
+		show_debug_message($"CHANGING ROOM SIZE! {room_width}")
+	}
+	updateChunk(map_id, _chunkX)
 }
 
 function updateChunk(map_id,_chunkX){
@@ -74,4 +86,41 @@ function updateChunk(map_id,_chunkX){
 		show_debug_message(_exception)
 	}
 	
+}
+
+function offsetChunks(furthestX)
+{
+	show_debug_message($"CHANGING LAYER: {furthestX*256}")
+	var lay_id = layer_get_id("tiles");
+	layer_x(lay_id, furthestX*256)
+
+}
+
+function renderChunk(_chunkX)
+{
+	var _c = ds_map_find_value(global.chunks, _chunkX)
+		
+	var _cx = ds_grid_width(_c)
+	var _cy = ds_grid_height(_c)
+	
+	var _rx = 0
+	var _ry = 0
+	
+	repeat(_cx * _cy)
+	{
+		_rx++
+		if(_rx > 15)
+		{
+			_ry++
+			_rx = 0
+			if(_ry = 256)
+			{
+				break;				
+			}
+
+		}
+		var _i = ds_grid_get(_c, _rx, _ry)
+		draw_sprite_part(spr_tileset, 0, _i*16, 0, 16, 16, _rx*16, _ry*16)
+		//draw_sprite(spr_tileset, 0, _rx*16, _ry*16)
+	}
 }

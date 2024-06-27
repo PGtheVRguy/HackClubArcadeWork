@@ -1,7 +1,10 @@
 
 
-_x = lerp(_x, targetPlayer.x, 0.05)
-_y = lerp(_y, targetPlayer.y, 0.05)
+//_x = lerp(_x, targetPlayer.x, 0.05)
+//_y = lerp(_y, targetPlayer.y, 0.05)
+
+_x = x
+_y = y
 
 camZoom = 1
 
