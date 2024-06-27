@@ -1,5 +1,5 @@
 
-global.chunks = []
+global.chunks = ds_map_create()
 
 var lay_id = layer_get_id("tiles");
 
