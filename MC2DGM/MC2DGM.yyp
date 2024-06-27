@@ -38,6 +38,7 @@
     {"id":{"name":"obj_worldPlacer","path":"objects/obj_worldPlacer/obj_worldPlacer.yy",},},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
     {"id":{"name":"worldScripts","path":"scripts/worldScripts/worldScripts.yy",},},
+    {"id":{"name":"spr_debugBG","path":"sprites/spr_debugBG/spr_debugBG.yy",},},
     {"id":{"name":"spr_tileset","path":"sprites/spr_tileset/spr_tileset.yy",},},
     {"id":{"name":"ti_main","path":"tilesets/ti_main/ti_main.yy",},},
   ],

@@ -1,4 +1,6 @@
 
+global.chunks = []
+
 var lay_id = layer_get_id("tiles");
 
 layer_x(lay_id, 0) //We will use this to reorintate the 0,0 of the world
@@ -23,6 +25,8 @@ var ind = tile_get_index(data);
 data = tile_set_index(data, placeTile);
 
 tilemap_set_at_pixel(map_id, data, ix, iy); //debug spot
+
+
 
 generateChunk(0, map_id)
 

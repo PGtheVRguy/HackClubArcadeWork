@@ -19,3 +19,5 @@ if(keyboard_check(ord("S")))
 {
 	y += moveSpeed;
 }
+
+

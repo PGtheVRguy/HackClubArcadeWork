@@ -11,6 +11,7 @@ function generateChunk(_chunkX, map_id){
 	{
 		ds_grid_set(_c, i, 60, 2)
 	}
+	ds_grid_set_region(_c, 0, 61, 16, 256, 1)
 	
 	global.chunks[_chunkX] = _c //sets the main chunks array to hold the chunk
 	
@@ -55,7 +56,7 @@ function updateChunk(map_id,_chunkX){
 			var ind = tile_get_index(data);
 			data = tile_set_index(data, _t);
 			
-			tilemap_set_at_pixel(map_id, data, _rx, _ry); 
+			tilemap_set_at_pixel(map_id, data, (_rx*16)+((256)*_chunkX), _ry*16); 
 		}
 		
 	}
