@@ -1,5 +1,6 @@
-//renderChunk(0)
-
+renderChunk(0, 0)
+renderChunk(1, 0)
+/*
 if(mouse_check_button(mb_left))
 {
 	var mx = tilemap_get_cell_x_at_pixel(map_id, mouse_x, mouse_y);

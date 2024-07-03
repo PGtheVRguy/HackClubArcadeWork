@@ -4,22 +4,22 @@ function worldScripts(){
 
 }
 
-function generateChunk(_chunkX, map_id){
-	var _c = ds_grid_create(16,256) //Creates the chunk
+function generateChunk(_chunkX, _chunkY){ //map_id
+	var _c = ds_grid_create(16,16) //Creates the chunk
 	ds_grid_clear(_c, 0)
-	for(var i = 0; i < 16; i++) //This is just a debug chunk
-	{
-		ds_grid_set(_c, i, 60, 2)
-	}
-	ds_grid_set_region(_c, 0, 61, 16, 256, 1)
+	ds_grid_set_region(_c, 0, 0, 16, 16, 1)
+	
+	var _ymap = ds_map_create()
+	
+	ds_map_set(_ymap, _chunkY, _c); //sets the Y
 	
 	
-	ds_map_set(global.chunks, _chunkX, _c)
+	ds_map_set(global.chunks, _chunkX, _ymap) //sets the X
 	//ds_list_set(global.chunks, _chunkX, _c)
 	
 	//global.chunks[_chunkX] = _c //sets the main chunks array to hold the chunk
 	
-	
+	/*
 	if(_chunkX < furthestX)
 	{
 		furthestX = _chunkX
@@ -32,9 +32,9 @@ function generateChunk(_chunkX, map_id){
 		//room_width = _chunkX*256
 		show_debug_message($"CHANGING ROOM SIZE! {room_width}")
 	}
-	updateChunk(map_id, _chunkX)
+	updateChunk(map_id, _chunkX)*/
 }
-
+/*
 function updateChunk(map_id,_chunkX){
 	try{
 		//var _c = global.chunks[_chunkX] //pulls the chunk thingy
@@ -86,7 +86,7 @@ function updateChunk(map_id,_chunkX){
 		show_debug_message(_exception)
 	}
 	
-}
+}*/
 
 function offsetChunks(furthestX)
 {
@@ -96,31 +96,39 @@ function offsetChunks(furthestX)
 
 }
 
-function renderChunk(_chunkX)
+function renderChunk(_chunkX, _chunkY)
 {
 	var _c = ds_map_find_value(global.chunks, _chunkX)
-		
+	_c = ds_map_find_value(_c, _chunkY)
+	
+	
+	//The way we setup the chun system is 
+	//having a ds_map inside a ds_map
+	// So we go into the X ds_map then read from the Y ds_map
+	//
+	//
+	
+	
 	var _cx = ds_grid_width(_c)
 	var _cy = ds_grid_height(_c)
 	
-	var _rx = 0
+	var _rx = -1
 	var _ry = 0
 	
 	repeat(_cx * _cy)
 	{
-		_rx++
-		if(_rx > 15)
+		if(_rx > 14)
 		{
 			_ry++
-			_rx = 0
-			if(_ry = 256)
+			_rx = -1
+			if(_ry = 16)
 			{
 				break;				
 			}
-
 		}
+		_rx++
 		var _i = ds_grid_get(_c, _rx, _ry)
-		draw_sprite_part(spr_tileset, 0, _i*16, 0, 16, 16, _rx*16, _ry*16)
+		draw_sprite_part(spr_tileset, 0, _i*16, 0, 16, 16, (_rx*16)+_chunkX*256, (_ry*16)+_chunkY*256)
 		//draw_sprite(spr_tileset, 0, _rx*16, _ry*16)
 	}
 }

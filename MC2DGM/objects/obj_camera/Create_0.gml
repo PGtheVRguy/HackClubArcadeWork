@@ -8,10 +8,11 @@ vertex_format_add_texcoord()
 
 format = vertex_format_end()*/
 
-y = 1000
+y = 0
 zoom = 4
 
-currentChunk = 0
+currentChunkX = 0
+currentChunkY = 0
 
 camWidth = 455*zoom
 camHeight = 256*zoom
