@@ -5,10 +5,15 @@ function worldScripts(){
 }
 
 function generateChunk(_chunkX, _chunkY){ //map_id
+	show_debug_message($"GENERATING NEW CHUNKS X:{_chunkX}, Y:{_chunkY}")
+	
+
+	
+	
 	var _c = ds_grid_create(16,16) //Creates the chunk
 	ds_grid_clear(_c, 0)
 	ds_grid_set_region(_c, 0, 0, 16, 16, 1)
-	
+	ds_grid_set_region(_c, irandom_range(0,16), irandom_range(0,16), irandom_range(0,16), irandom_range(0,16), 2)
 	var _ymap = ds_map_create()
 	
 	ds_map_set(_ymap, _chunkY, _c); //sets the Y
@@ -98,19 +103,40 @@ function offsetChunks(furthestX)
 
 function renderChunk(_chunkX, _chunkY)
 {
+	show_debug_message($"X:{json_encode(global.chunks)}")
 	var _c = ds_map_find_value(global.chunks, _chunkX)
+	show_debug_message($"Y:{json_encode(_c)}")
 	_c = ds_map_find_value(_c, _chunkY)
+	
 	
 	
 	//The way we setup the chun system is 
 	//having a ds_map inside a ds_map
 	// So we go into the X ds_map then read from the Y ds_map
+	//				  ||
+	//READS Y 2ND >   ||
+	//				  ||
+	//			   =================
+	//				  ^ READS X 1st
 	//
 	//
-	
-	
+	/*
+	try
+	{
+		var _cx = ds_grid_width(_c)
+		var _cy = ds_grid_height(_c)
+		var _break = false
+	}
+	catch(_exception)
+	{
+		generateChunk(_chunkX, _chunkY)
+		show_debug_message("GENERATING FROM worldScripts.gml SCRIPT")
+		var _break = true
+		exit;
+	}*/
 	var _cx = ds_grid_width(_c)
 	var _cy = ds_grid_height(_c)
+
 	
 	var _rx = -1
 	var _ry = 0

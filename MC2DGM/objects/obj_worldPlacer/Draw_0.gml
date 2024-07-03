@@ -1,5 +1,7 @@
-renderChunk(0, 0)
-renderChunk(1, 0)
+
+
+renderChunk(obj_camera.currentChunkX, obj_camera.currentChunkY)
+
 /*
 if(mouse_check_button(mb_left))
 {

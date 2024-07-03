@@ -29,7 +29,7 @@ tilemap_set_at_pixel(map_id, data, ix, iy); //debug spot
 
 */
 
-generateChunk(0, 0)
-generateChunk(1, 0)
+//generateChunk(0, 0)
+//generateChunk(1, 0)
 show_debug_overlay(true)
 //show_debug_message($"placed tile at x:{_loadEntity.pos_x} y: {_loadEntity.pos_y} with tile of {placeTile}")
