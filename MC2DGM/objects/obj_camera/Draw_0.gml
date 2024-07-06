@@ -51,3 +51,5 @@ if(input_check_pressed("d_editor"))
 
 oMx = mouse_x
 oMy = mouse_y
+
+draw_rectangle(0,0,256,256,true)

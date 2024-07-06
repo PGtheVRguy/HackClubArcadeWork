@@ -1,3 +1,8 @@
+
+
+x = obj_player.x
+y = obj_player.y
+
 if(mouse_wheel_up())
 {
 	zoom -= 0.1
