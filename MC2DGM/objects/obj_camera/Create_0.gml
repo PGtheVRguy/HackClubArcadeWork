@@ -9,7 +9,7 @@ vertex_format_add_texcoord()
 format = vertex_format_end()*/
 
 y = 0
-zoom = 4
+zoom = 1
 
 currentChunkX = 0
 currentChunkY = 0

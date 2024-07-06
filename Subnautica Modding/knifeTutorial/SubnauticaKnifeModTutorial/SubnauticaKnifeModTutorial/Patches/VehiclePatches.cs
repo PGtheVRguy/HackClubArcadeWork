@@ -21,7 +21,7 @@ namespace SubnauticaKnifeModTutorial.Patches
         [HarmonyPrefix]
         public static bool Awake_Prefix(Vehicle __instance)
         {
-            SubnauticaKnifeModTutorialPlugin.Log.LogInfo("In PlayerTool Awake method Prefix.");
+            //SubnauticaKnifeModTutorialPlugin.Log.LogInfo("In PlayerTool Awake method Prefix.");
             if(__instance.GetType() == typeof(SeaMoth))
             {
                 SeaMoth seamoth = __instance as SeaMoth;
@@ -29,6 +29,7 @@ namespace SubnauticaKnifeModTutorial.Patches
                 //seamoth.stabilizeRoll = false;
                 seamoth.SendMessage("TEST");
                 seamoth.verticalForce = 30f;
+                
                 //seamoth.onGroundForceMultiplier = 20f;
             }
             return true;

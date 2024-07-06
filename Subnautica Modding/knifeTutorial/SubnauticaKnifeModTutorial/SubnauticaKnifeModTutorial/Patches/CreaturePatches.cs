@@ -1,4 +1,8 @@
 ﻿using HarmonyLib;
+using UnityEngine;
+using System.Collections.Generic;
+using Nautilus;
+using Nautilus.Handlers;
 
 namespace SubnauticaKnifeModTutorial.Patches
 {
@@ -10,25 +14,47 @@ namespace SubnauticaKnifeModTutorial.Patches
     /// Below is included as an example, and should be replaced by classes and methods
     /// for your mod.
     /// </summary>
-    [HarmonyPatch(typeof(PlayerTool))]
-    internal class PlayerToolPatches
+    [HarmonyPatch(typeof(Creature))]
+    internal class CreaturePatches
     {
+
+
+
         /// <summary>
         /// Patches the Player Awake method with prefix code.
         /// </summary>
         /// <param name="__instance"></param>
-        [HarmonyPatch(nameof(PlayerTool.Awake))]
+        [HarmonyPatch(nameof(Creature.Start))]
         [HarmonyPrefix]
-        public static bool Awake_Prefix(PlayerTool __instance)
+        public static void Start_Prefix(Creature __instance)
         {
-            //SubnauticaKnifeModTutorialPlugin.Log.LogInfo("In PlayerTool Awake method Prefix.");
-            if(__instance.GetType() == typeof(Knife))
+            GameObject __creature = __instance.gameObject;
+
+            TechType __techType = CraftData.GetTechType(__creature);
+
+            float size = 1f;
+            size = Random.Range(0.5f, 2f);
+            __instance.transform.localScale = new Vector3(size, size, size);
+
+
+            string classId = "GhostRayRed"; 
+            Vector3 spawnPosition = new Vector3(0, 0, 0); 
+            Quaternion rotation = Quaternion.identity; 
+
+            SpawnInfo spawnInfo = new SpawnInfo(classId, spawnPosition, rotation);
+
+
+            switch (__techType)
             {
-                Knife knife = __instance as Knife;
-                knife.damage = SubnauticaKnifeModTutorialPlugin.KnifeDamage.Value;
-                //SubnauticaKnifeModTutorialPlugin.Log.LogInfo($"Knife damage is now {knife.damage}.");
+                
+            
+            case TechType.Peeper:
+                    
+                    CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(spawnInfo);
+
+                    break;
+
             }
-            return true;
         }
         /*
         /// <summary>

@@ -70,3 +70,5 @@ C:\Users\sapel\Documents\GitHub\HackClubArcadeWork\Subnautica Modding\knifeTutor
 C:\Users\sapel\Documents\GitHub\HackClubArcadeWork\Subnautica Modding\knifeTutorial\SubnauticaKnifeModTutorial\SubnauticaKnifeModTutorial\obj\Debug\SubnauticaKnifeModTutorial.csproj.CopyComplete
 C:\Users\sapel\Documents\GitHub\HackClubArcadeWork\Subnautica Modding\knifeTutorial\SubnauticaKnifeModTutorial\SubnauticaKnifeModTutorial\obj\Debug\SubnauticaKnifeModTutorial.dll
 C:\Users\sapel\Documents\GitHub\HackClubArcadeWork\Subnautica Modding\knifeTutorial\SubnauticaKnifeModTutorial\SubnauticaKnifeModTutorial\obj\Debug\SubnauticaKnifeModTutorial.pdb
+C:\Users\sapel\Documents\GitHub\HackClubArcadeWork\Subnautica Modding\knifeTutorial\SubnauticaKnifeModTutorial\SubnauticaKnifeModTutorial\bin\Debug\Nautilus.dll
+C:\Users\sapel\Documents\GitHub\HackClubArcadeWork\Subnautica Modding\knifeTutorial\SubnauticaKnifeModTutorial\SubnauticaKnifeModTutorial\bin\Debug\Nautilus.xml

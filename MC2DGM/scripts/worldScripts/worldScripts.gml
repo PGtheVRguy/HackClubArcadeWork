@@ -14,12 +14,34 @@ function generateChunk(_chunkX, _chunkY){ //map_id
 	ds_grid_clear(_c, 0)
 	ds_grid_set_region(_c, 0, 0, 16, 16, 1)
 	ds_grid_set_region(_c, irandom_range(0,16), irandom_range(0,16), irandom_range(0,16), irandom_range(0,16), 2)
-	var _ymap = ds_map_create()
 	
-	ds_map_set(_ymap, _chunkY, _c); //sets the Y
+	_c = generatePerlinChunk(_chunkX, _chunkY)
+	
+	
+	var _ymap = ds_map_find_value(global.chunks, _chunkX)
+	
+	if(_ymap == undefined)
+	{
+		_ymap = ds_map_create()
+	}
+	
+	
+	
+	ds_map_add(_ymap, _chunkY, _c); //sets the Y
 	
 	
 	ds_map_set(global.chunks, _chunkX, _ymap) //sets the X
+	
+	
+	#region debug
+	
+	var _x = ds_map_find_value(global.chunks, _chunkX)
+	var _y = ds_map_find_value(_x, _chunkY)
+	//show_debug_message(_y)
+	
+	
+	#endregion
+	
 	//ds_list_set(global.chunks, _chunkX, _c)
 	
 	//global.chunks[_chunkX] = _c //sets the main chunks array to hold the chunk
@@ -95,7 +117,7 @@ function updateChunk(map_id,_chunkX){
 
 function offsetChunks(furthestX)
 {
-	show_debug_message($"CHANGING LAYER: {furthestX*256}")
+	//show_debug_message($"CHANGING LAYER: {furthestX*256}")
 	var lay_id = layer_get_id("tiles");
 	layer_x(lay_id, furthestX*256)
 
@@ -103,9 +125,31 @@ function offsetChunks(furthestX)
 
 function renderChunk(_chunkX, _chunkY)
 {
-	show_debug_message($"X:{json_encode(global.chunks)}")
+	//show_debug_message($"X:{json_encode(global.chunks)}")
+	
+	
+	try
+	{
+		var e = ds_map_find_value(ds_map_find_value(global.chunks, _chunkX), _chunkY)
+		//show_debug_message($"tried to generate {e}")
+		if(e = undefined)
+		{
+			generateChunk(_chunkX, _chunkY)
+		}
+	}
+	catch(_exception)
+	{
+		//show_debug_message("GENERATING FROM WORLDPLACER OBJECT")
+		generateChunk(_chunkX, _chunkY)
+	}
+	
+	
+	
+	
+	
+	
 	var _c = ds_map_find_value(global.chunks, _chunkX)
-	show_debug_message($"Y:{json_encode(_c)}")
+	//show_debug_message($"Y:{json_encode(_c)}")
 	_c = ds_map_find_value(_c, _chunkY)
 	
 	
@@ -134,27 +178,34 @@ function renderChunk(_chunkX, _chunkY)
 		var _break = true
 		exit;
 	}*/
-	var _cx = ds_grid_width(_c)
-	var _cy = ds_grid_height(_c)
+	try
+	{
+		var _cx = ds_grid_width(_c)
+		var _cy = ds_grid_height(_c)
 
 	
-	var _rx = -1
-	var _ry = 0
+		var _rx = -1
+		var _ry = 0
 	
-	repeat(_cx * _cy)
-	{
-		if(_rx > 14)
+		repeat(_cx * _cy)
 		{
-			_ry++
-			_rx = -1
-			if(_ry = 16)
+			if(_rx > 14)
 			{
-				break;				
+				_ry++
+				_rx = -1
+				if(_ry = 16)
+				{
+					break;				
+				}
 			}
+			_rx++
+			var _i = ds_grid_get(_c, _rx, _ry)
+			draw_sprite_part(spr_tileset, 0, _i*16, 0, 16, 16, (_rx*16)+_chunkX*256, (_ry*16)+_chunkY*256)
+			//draw_sprite(spr_tileset, 0, _rx*16, _ry*16)
 		}
-		_rx++
-		var _i = ds_grid_get(_c, _rx, _ry)
-		draw_sprite_part(spr_tileset, 0, _i*16, 0, 16, 16, (_rx*16)+_chunkX*256, (_ry*16)+_chunkY*256)
-		//draw_sprite(spr_tileset, 0, _rx*16, _ry*16)
+	}
+	catch(_exception)
+	{
+		//hi
 	}
 }

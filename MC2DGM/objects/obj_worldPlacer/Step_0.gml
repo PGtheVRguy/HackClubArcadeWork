@@ -43,13 +43,24 @@ else
 }
 
 */
-
+/*
 try
 {
 	var e = ds_map_find_value(ds_map_find_value(global.chunks, obj_camera.currentChunkX), obj_camera.currentChunkY)
+	//show_debug_message($"tried to generate {e}")
+	if(e = undefined)
+	{
+		generateChunk(obj_camera.currentChunkX, obj_camera.currentChunkY)
+	}
 }
 catch(_exception)
 {
-	show_debug_message("GENERATING FROM WORLDPLACER OBJECT")
+	//show_debug_message("GENERATING FROM WORLDPLACER OBJECT")
 	generateChunk(obj_camera.currentChunkX, obj_camera.currentChunkY)
+}
+*/
+
+if(mouse_check_button(mb_left))
+{
+	
 }
