@@ -1,6 +1,6 @@
 draw_text(20,20,$"{x},{y}")
 draw_text(20,40,$"{x/16},{y/16}")
-
+draw_text_scribble(40,40, "[c_black]TEST")
 currentChunkX = int64(x/256)
 currentChunkY = int64(y/256)
 
