@@ -17,5 +17,8 @@ lastCursorPos[1] = 0
 
 currentItem = 1
 
+invOpen = false
+
 global.inventory = ds_grid_create(9,4);
+ds_grid_clear(global.inventory, 0)
 global.inventoryCount = ds_grid_create(ds_grid_width(global.inventory), ds_grid_height(global.inventory));
