@@ -130,7 +130,7 @@ function renderChunk(_chunkX, _chunkY)
 			}
 			_rx++
 			var _i = ds_grid_get(_c, _rx, _ry)
-			draw_sprite_part(spr_tileset, 0, _i*16, 0, 16, 16, (_rx*16)+_chunkX*256, (_ry*16)+_chunkY*256)
+			draw_sprite_part(spr_tileset, 0, (_i.sprite)*16, 0, 16, 16, (_rx*16)+_chunkX*256, (_ry*16)+_chunkY*256)
 			//draw_sprite(spr_tileset, 0, _rx*16, _ry*16)
 		}
 	}
@@ -179,7 +179,7 @@ function placeTile(_tile, _x, _y)
 			_my -= 1
 		}
 		
-		ds_grid_set(_c, _mx, _my, 1)
+		ds_grid_set(_c, _mx, _my, _tile)
 		
 	}
 	catch(_exception)
@@ -192,4 +192,66 @@ function placeTile(_tile, _x, _y)
 	
 	
 	show_debug_message($"CLICKED CHUNK: {currentChunkX}, {currentChunkY}. ds_grid: {_c}\n at {_mx}, {_my}")
+	show_debug_message($"Placed {_tile}")
+}
+function getTile(_x, _y)
+{
+	var currentChunkX = int64(_x/256)
+	var currentChunkY = int64(_y/256)
+	if((_x/256) < 0)
+	{
+		show_debug_message(_x/256)
+		currentChunkX -= 1
+	}
+	if((_y/256) < 0)
+	{
+		currentChunkY -= 1
+	}
+	
+	
+	//show_debug_message($"Y:{json_encode(_c)}")
+	try
+	{
+		var _c = ds_map_find_value(global.chunks, currentChunkX)
+		_c = ds_map_find_value(_c, currentChunkY)
+		
+		
+		var _tx = int64(_x/16)
+		var _ty = int64(_y/16)
+		
+		
+		var _mx = _tx - currentChunkX*16
+		var _my = _ty - currentChunkY*16
+		/*
+		if(_x/256 < 0)
+		{
+			_mx -= 1
+		}
+		if(_y/256 < 0)
+		{
+			_my -= 1
+		}*/
+		
+		var _ret = ds_grid_get(_c, _mx, _my)
+		if(_ret = undefined)
+		{
+			return obj_tiles.ti_air
+		}
+		
+		return _ret
+		
+		//ds_grid_set(_c, _mx, _my, _tile)
+		
+	}
+	catch(_exception)
+	{
+		show_debug_message("no chunk")
+		var _c = "NOT REAL!"
+		var _mx = 0
+		var _my = 0
+		return obj_tiles.ti_air
+	}
+	
+	
+
 }

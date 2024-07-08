@@ -13,7 +13,7 @@ repeat(_renderDis) //x
 	repeat(_renderDis) //y
 	{
 		_rp[0]++
-		//renderChunk(obj_camera.currentChunkX+_rp[0], obj_camera.currentChunkY+_rp[1])
+		renderChunk(obj_camera.currentChunkX+_rp[0], obj_camera.currentChunkY+_rp[1])
 	}
 	_rp[1]++
 	_rp[0] = -_renderDis/2

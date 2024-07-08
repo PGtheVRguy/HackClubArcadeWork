@@ -12,8 +12,8 @@ function generatePerlinChunk(_chunkX,_chunkY)
 
 	genRes = 20;
 
-	sandPercent = 30;
-	grassPercent = 50;
+	sandPercent = 40;
+	grassPercent = 60;
 
 
 	tpX = 0
@@ -25,15 +25,15 @@ function generatePerlinChunk(_chunkX,_chunkY)
 		{
 			var _t = map_value(perlin_noise((tpX+_chunkX*16)/genRes, (tpY+_chunkY*16)/genRes), -1, 1, 0, 100)
 			//show_debug_message(_t)
-			var _tile = 4
+			var _tile = obj_tiles.ti_water
 			if(_t > sandPercent)
 			{
-				_tile = 3
+				_tile = obj_tiles.ti_sand
 			}
 			if(_t > grassPercent)
 			{
 		
-				_tile = 1
+				_tile = obj_tiles.ti_grass
 			}
 			ds_grid_set(_grid,tpX,tpY,_tile)
 			tpX++
