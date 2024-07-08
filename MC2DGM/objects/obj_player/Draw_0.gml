@@ -66,6 +66,11 @@ if(input_check("rclick"))
 		if(breakTime > _timeToBreak)
 		{
 			placeTile(obj_tiles.ti_air, mouse_x, mouse_y)
+			var _it = variable_instance_get(obj_tiles, _ti.drop)
+			addInventory(_it)
+			//ds_grid_set(global.inventory, 0, 0, _it)
+			show_debug_message(_it)
+			
 		}
 	}
 
@@ -83,7 +88,8 @@ lastCursorPos[1] = snap(mouse_y-8)
 
 
 
-//debug
+//debug//*/*
+/*
 #region debug
 var _t = getTile(snapChunkPos(mouse_x-8),snapChunkPos(mouse_y-8))
 draw_text(x,y,$"x:{snapChunkPos(mouse_x-8)},y:{snapChunkPos(mouse_y-8)},\ntile:{_t}")

@@ -198,15 +198,29 @@ function getTile(_x, _y)
 {
 	var currentChunkX = int64(_x/256)
 	var currentChunkY = int64(_y/256)
+	
+	//show_debug_message($"Not rouned:{_x/256} rounded:{int64(_x/256)}")
+	
 	if((_x/256) < 0)
 	{
-		show_debug_message(_x/256)
 		currentChunkX -= 1
+		if(_x/256 == int64(_x/256))
+		{
+			currentChunkX++;
+		}
 	}
 	if((_y/256) < 0)
 	{
 		currentChunkY -= 1
+		if(_y/256 == int64(_y/256))
+		{
+			currentChunkY++;
+		}
 	}
+	
+
+	
+
 	
 	
 	//show_debug_message($"Y:{json_encode(_c)}")
