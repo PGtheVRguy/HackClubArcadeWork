@@ -24,5 +24,7 @@ if(keyboard_check(ord("S")))
 
 if(keyboard_check_pressed(ord("R")))
 {
+	randomize()
+	show_debug_message($"NEW CHUNKS: {random_get_seed()}")
 	ds_map_clear(global.chunks)
 }

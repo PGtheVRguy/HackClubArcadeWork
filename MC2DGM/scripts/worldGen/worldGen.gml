@@ -1,20 +1,26 @@
 function generatePerlinChunk(_chunkX,_chunkY)
 {
 	
-	//variable_instance_set(id, varName, ds_grid_create(16,16))
-	//if(ds_list_find_index(global.chunkList, varName) = -1)
-	//{
-	//	ds_list_add(global.chunkList,varName)
-	//}
-	//var _grid = variable_instance_get(id, varName)
 
-	var _grid = ds_grid_create(16,16)
+	/*
+	
+		The world is going to be built upon 3 layer. Layer 0 (bedrock)
+		Layer 1 (ground) and Layer 2 (Walls)
+	
+	
+	*/
+
+
+	var _grid0 = ds_grid_create(16,16)
+	var _grid1 = ds_grid_create(16,16)
+	var _grid2 = ds_grid_create(16,16)
+
 
 	genRes = 20;
 
 	sandPercent = 40;
 	grassPercent = 60;
-
+	stonePercent = 80;
 
 	tpX = 0
 	tpY = 0
@@ -35,14 +41,28 @@ function generatePerlinChunk(_chunkX,_chunkY)
 		
 				_tile = obj_tiles.ti_grass
 			}
-			ds_grid_set(_grid,tpX,tpY,_tile)
+			if(_t > stonePercent)
+			{
+		
+				ds_grid_set(_grid2,tpX,tpY,obj_tiles.ti_stone)
+			}
+			else
+			{
+				ds_grid_set(_grid2,tpX,tpY,obj_tiles.ti_air)
+			}
+			ds_grid_set(_grid1,tpX,tpY,_tile)
 			tpX++
 		}
 		tpY++
 		tpX = 0
 	}
 	
-	return _grid
+	var _return = []
+	_return[0] = _grid0
+	_return[1] = _grid1
+	_return[2] = _grid2
+	
+	return _return
 		
 }
 

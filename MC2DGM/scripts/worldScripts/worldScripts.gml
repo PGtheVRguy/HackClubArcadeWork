@@ -10,12 +10,12 @@ function generateChunk(_chunkX, _chunkY){ //map_id
 
 	
 	
-	var _c = ds_grid_create(16,16) //Creates the chunk
+	/*var _c = ds_grid_create(16,16) //Creates the chunk
 	ds_grid_clear(_c, 0)
 	ds_grid_set_region(_c, 0, 0, 16, 16, 1)
-	ds_grid_set_region(_c, irandom_range(0,16), irandom_range(0,16), irandom_range(0,16), irandom_range(0,16), 2)
+	ds_grid_set_region(_c, irandom_range(0,16), irandom_range(0,16), irandom_range(0,16), irandom_range(0,16), 2)*/
 	
-	_c = generatePerlinChunk(_chunkX, _chunkY)
+	var _c = generatePerlinChunk(_chunkX, _chunkY)
 	
 	
 	var _ymap = ds_map_find_value(global.chunks, _chunkX)
@@ -82,6 +82,11 @@ function renderChunk(_chunkX, _chunkY)
 	//show_debug_message($"Y:{json_encode(_c)}")
 	_c = ds_map_find_value(_c, _chunkY)
 	
+	var _ch0 = _c[0]
+	var _ch1 = _c[1]
+	var _ch2 = _c[2]
+	//show_debug_message(_ch1)
+	
 	
 	
 	//The way we setup the chun system is 
@@ -110,10 +115,10 @@ function renderChunk(_chunkX, _chunkY)
 	}*/
 	try
 	{
-		var _cx = ds_grid_width(_c)
-		var _cy = ds_grid_height(_c)
+		var _cx = ds_grid_width(_ch1)
+		var _cy = ds_grid_height(_ch1)
 
-	
+		//show_debug_message($"{_cx}*{_cy}")
 		var _rx = -1
 		var _ry = 0
 	
@@ -129,9 +134,15 @@ function renderChunk(_chunkX, _chunkY)
 				}
 			}
 			_rx++
-			var _i = ds_grid_get(_c, _rx, _ry)
+			var _i = ds_grid_get(_ch1, _rx, _ry)
 			draw_sprite_part(spr_tileset, 0, (_i.sprite)*16, 0, 16, 16, (_rx*16)+_chunkX*256, (_ry*16)+_chunkY*256)
-			//draw_sprite(spr_tileset, 0, _rx*16, _ry*16)
+			
+			var _i2 = ds_grid_get(_ch2, _rx, _ry)
+			draw_sprite_part(spr_tileset, 0, (_i2.sprite)*16, 0, 16, 16, (_rx*16)+_chunkX*256, (_ry*16)+_chunkY*256)
+			
+			//var _i = ds_grid_get(_ch2, _rx, _ry)
+			//draw_sprite_part(spr_tileset, 0, (_i.sprite)*16, 0, 16, 16, (_rx*16)+_chunkX*256, (_ry*16)+_chunkY*256)
+			
 		}
 	}
 	catch(_exception)
@@ -162,10 +173,14 @@ function placeTile(_tile, _x, _y)
 		var _c = ds_map_find_value(global.chunks, currentChunkX)
 		_c = ds_map_find_value(_c, currentChunkY)
 		
+		var _ch0 = _c[0]
+		var _ch1 = _c[1]
+		var _ch2 = _c[2]
 		
 		var _tx = int64(_x/16)
 		var _ty = int64(_y/16)
 		
+		//Come back later to add placing based on layer
 		
 		var _mx = _tx - currentChunkX*16
 		var _my = _ty - currentChunkY*16
@@ -179,7 +194,7 @@ function placeTile(_tile, _x, _y)
 			_my -= 1
 		}
 		
-		ds_grid_set(_c, _mx, _my, _tile)
+		ds_grid_set(_ch1, _mx, _my, _tile)
 		
 	}
 	catch(_exception)
@@ -229,6 +244,10 @@ function getTile(_x, _y)
 		var _c = ds_map_find_value(global.chunks, currentChunkX)
 		_c = ds_map_find_value(_c, currentChunkY)
 		
+		var _ch0 = _c[0]
+		var _ch1 = _c[1]
+		var _ch2 = _c[2]
+		
 		
 		var _tx = int64(_x/16)
 		var _ty = int64(_y/16)
@@ -246,7 +265,7 @@ function getTile(_x, _y)
 			_my -= 1
 		}*/
 		
-		var _ret = ds_grid_get(_c, _mx, _my)
+		var _ret = ds_grid_get(_ch1, _mx, _my)
 		if(_ret = undefined)
 		{
 			return obj_tiles.ti_air
@@ -260,7 +279,7 @@ function getTile(_x, _y)
 	catch(_exception)
 	{
 		show_debug_message("no chunk")
-		var _c = "NOT REAL!"
+		var _ch1 = "NOT REAL!"
 		var _mx = 0
 		var _my = 0
 		return obj_tiles.ti_air

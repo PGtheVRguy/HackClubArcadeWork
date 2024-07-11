@@ -2,8 +2,8 @@
 
 x = obj_player.x
 y = obj_player.y
-/*
-if(mouse_wheel_up())
+
+if(keyboard_check(vk_add))
 {
 	zoom -= 0.1
 	camWidth = 455*zoom
@@ -12,7 +12,7 @@ if(mouse_wheel_up())
 	camera_set_view_size(view_camera[0],camWidth,camHeight)
 
 }
-if(mouse_wheel_down())
+if(keyboard_check(vk_subtract))
 {
 	zoom += 0.1
 	camWidth = 455*zoom
