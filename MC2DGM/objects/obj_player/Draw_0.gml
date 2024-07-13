@@ -49,7 +49,7 @@ if(snap(mouse_y-8) != lastCursorPos[1])
 }
 
 
-if(input_check("rclick"))
+if(input_check("rclick") && (!invOpen))
 {
 	breakTime++
 	

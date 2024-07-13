@@ -566,6 +566,7 @@
     {"id":{"name":"scribble_fallback_bulletpoint","path":"sprites/scribble_fallback_bulletpoint/scribble_fallback_bulletpoint.yy",},},
     {"id":{"name":"spr_debugBG","path":"sprites/spr_debugBG/spr_debugBG.yy",},},
     {"id":{"name":"spr_gui_breaking","path":"sprites/spr_gui_breaking/spr_gui_breaking.yy",},},
+    {"id":{"name":"spr_gui_craftSel","path":"sprites/spr_gui_craftSel/spr_gui_craftSel.yy",},},
     {"id":{"name":"spr_gui_hotbar","path":"sprites/spr_gui_hotbar/spr_gui_hotbar.yy",},},
     {"id":{"name":"spr_gui_inv","path":"sprites/spr_gui_inv/spr_gui_inv.yy",},},
     {"id":{"name":"spr_gui_outline","path":"sprites/spr_gui_outline/spr_gui_outline.yy",},},

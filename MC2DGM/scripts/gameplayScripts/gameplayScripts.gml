@@ -127,3 +127,15 @@ function addInventory(_item)
 	}
 	return false;
 }
+
+function isEven(_i)
+{
+	if _i % 2 == 1
+	{
+		return false
+	}
+	else
+	{
+		return true
+	}
+}

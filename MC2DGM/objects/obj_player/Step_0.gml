@@ -1,13 +1,19 @@
 
-
-hsp = (input_check("right") - input_check("left")) * walk_spd
-vsp = (input_check("down") - input_check("up")) * walk_spd
-
+if(!invOpen)
+{
+	hsp = (input_check("right") - input_check("left")) * walk_spd
+	vsp = (input_check("down") - input_check("up")) * walk_spd
+}
+else
+{
+	hsp = 0
+	vsp = 0
+}
 x += hsp;
 y += vsp;
 
 
-if(input_check_pressed("lclick"))
+if(input_check_pressed("lclick") && (!invOpen))
 {
 	
 

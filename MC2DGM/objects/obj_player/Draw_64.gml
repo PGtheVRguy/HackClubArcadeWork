@@ -33,6 +33,19 @@ if(input_check_pressed("inventory"))
 
 if(invOpen)
 {
+	#region crafting
+	
+	for(i = 0; i < 10; i++)
+	{
+		var _fr = isEven(i)
+		draw_sprite(spr_gui_craftSel, _fr, ((guiWidth()/2)+8), (32+16) + ((sprite_get_height(spr_gui_craftSel) - 1)*i))
+	}
+	
+	#endregion
+	
+	
+	
+	
 	draw_sprite(spr_gui_inv,0, guiWidth()/2, 32)
 	
 	var _x = guiWidth()/2
@@ -64,5 +77,13 @@ if(invOpen)
 		_cx++
 		
 	}
+	invBlur = lerp(invBlur, 10, 0.05)
 	
 }
+else
+{
+	invBlur = lerp(invBlur, 0, 0.08)
+}
+
+fx_set_parameter(_fxInvBlur, "g_RecursiveBlurRadius", invBlur); //10 is max
+layer_set_fx("effect", _fxInvBlur)
