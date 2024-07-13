@@ -43,7 +43,7 @@ function generatePerlinChunk(_chunkX,_chunkY)
 			}
 			if(_t > stonePercent)
 			{
-		
+				//ds_grid_set(_grid1,tpX,tpY,obj_tiles.ti_grass)
 				ds_grid_set(_grid2,tpX,tpY,obj_tiles.ti_stone)
 			}
 			else

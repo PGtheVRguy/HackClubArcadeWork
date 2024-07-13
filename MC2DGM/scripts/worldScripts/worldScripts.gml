@@ -234,6 +234,87 @@ function placeTile(_tile, _x, _y, _layer = -1)
 	//show_debug_message($"CLICKED CHUNK: {currentChunkX}, {currentChunkY}. ds_grid: {_c}\n at {_mx}, {_my}")
 	//show_debug_message($"Placed {_tile}")
 }
+function removeTile(_x, _y)
+{
+	
+	var _tile = obj_tiles.ti_air
+	var currentChunkX = int64(_x/256)
+	var currentChunkY = int64(_y/256)
+	
+	if(_x/256 < 0)
+	{
+		currentChunkX -= 1
+	}
+	if(_y/256 < 0)
+	{
+		currentChunkY -= 1
+	}
+	
+	
+	//show_debug_message($"Y:{json_encode(_c)}")
+	try
+	{
+		var _c = ds_map_find_value(global.chunks, currentChunkX)
+		_c = ds_map_find_value(_c, currentChunkY)
+		
+		var _ch0 = _c[0]
+		var _ch1 = _c[1]
+		var _ch2 = _c[2]
+		
+		var _tx = int64(_x/16)
+		var _ty = int64(_y/16)
+		
+		//Come back later to add placing based on layer
+		
+		var _mx = _tx - currentChunkX*16
+		var _my = _ty - currentChunkY*16
+		
+		if(_x/256 < 0)
+		{
+			_mx -= 1
+		}
+		if(_y/256 < 0)
+		{
+			_my -= 1
+		}
+		
+		
+		
+		var _l = 2
+		repeat(2)
+		{
+			if(ds_grid_get(_c[_l], _mx, _my).name == "Air")
+			{
+				_l--
+				
+			}
+			//show_debug_message(ds_grid_get(_c[_l], _mx, _my))
+		}
+		//_l++
+
+		_l = clamp(_l, 0, 2)
+		
+		show_debug_message($"Placed tile at {_mx}, {_my} at layer {_l}" )
+		
+		var _chunkLayer = _c[_l]
+		
+		//show_debug_message(_c)
+		
+		ds_grid_set(_chunkLayer, _mx, _my, _tile)
+		
+	}
+	catch(_exception)
+	{
+		show_debug_message("tryign to place in chunks that dont exist!!!")
+		var _c = "NOT REAL!"
+		var _mx = 0
+		var _my = 0
+	}
+	
+	
+	//show_debug_message($"CLICKED CHUNK: {currentChunkX}, {currentChunkY}. ds_grid: {_c}\n at {_mx}, {_my}")
+	//show_debug_message($"Placed {_tile}")
+}
 function getTile(_x, _y, _layer = -1)
 {
 	var currentChunkX = int64(_x/256)

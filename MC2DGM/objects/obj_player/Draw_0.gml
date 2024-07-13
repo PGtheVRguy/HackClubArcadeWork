@@ -68,11 +68,13 @@ if(input_check("rclick"))
 			draw_sprite(spr_gui_breaking, (breakTime/_timeToBreak)*8, snap(mouse_x-8), snap(mouse_y-8))
 			if(breakTime > _timeToBreak)
 			{
-				placeTile(obj_tiles.ti_air, mouse_x, mouse_y, 1)
+				//placeTile(obj_tiles.ti_air, mouse_x, mouse_y, 1)
+				removeTile(mouse_x, mouse_y)
 				var _it = variable_instance_get(obj_tiles, _ti.drop)
 				addInventory(_it)
 				//ds_grid_set(global.inventory, 0, 0, _it)
 				show_debug_message(_it)
+				breakTime = 0;
 			
 			}
 		}
