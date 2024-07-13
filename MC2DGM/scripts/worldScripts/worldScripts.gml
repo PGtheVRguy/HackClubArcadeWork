@@ -152,7 +152,7 @@ function renderChunk(_chunkX, _chunkY)
 }
 
 
-function placeTile(_tile, _x, _y)
+function placeTile(_tile, _x, _y, _layer = -1)
 {
 	var currentChunkX = int64(_x/256)
 	var currentChunkY = int64(_y/256)
@@ -194,7 +194,32 @@ function placeTile(_tile, _x, _y)
 			_my -= 1
 		}
 		
-		ds_grid_set(_ch1, _mx, _my, _tile)
+		
+		var _l = _layer
+		if(_layer == -1)
+		{
+			_l = 2
+			if(ds_grid_get(_ch2, _mx, _my).name = "Air")
+			{
+				_l = 2
+				if(ds_grid_get(_ch1, _mx, _my).name = "Air")
+				{
+					_l = 1
+				}
+			}
+			
+		}
+		
+		if(_l = -1)
+		{
+			_l = 1
+		}
+		
+		var _chunkLayer = _c[_l]
+		show_debug_message($"Placed tile at {_mx}, {_my} at layer {_layer}" )
+		show_debug_message(_c)
+		
+		ds_grid_set(_chunkLayer, _mx, _my, _tile)
 		
 	}
 	catch(_exception)
@@ -206,10 +231,10 @@ function placeTile(_tile, _x, _y)
 	}
 	
 	
-	show_debug_message($"CLICKED CHUNK: {currentChunkX}, {currentChunkY}. ds_grid: {_c}\n at {_mx}, {_my}")
-	show_debug_message($"Placed {_tile}")
+	//show_debug_message($"CLICKED CHUNK: {currentChunkX}, {currentChunkY}. ds_grid: {_c}\n at {_mx}, {_my}")
+	//show_debug_message($"Placed {_tile}")
 }
-function getTile(_x, _y)
+function getTile(_x, _y, _layer = -1)
 {
 	var currentChunkX = int64(_x/256)
 	var currentChunkY = int64(_y/256)
@@ -265,7 +290,20 @@ function getTile(_x, _y)
 			_my -= 1
 		}*/
 		
-		var _ret = ds_grid_get(_ch1, _mx, _my)
+		var _l = 2
+		repeat(2)
+		{
+			if(ds_grid_get(_c[_l], _mx, _my).name == "Air")
+			{
+				_l--
+				
+			}
+			show_debug_message(ds_grid_get(_c[_l], _mx, _my))
+		}
+		
+		
+		
+		var _ret = ds_grid_get(_c[_l], _mx, _my)
 		if(_ret = undefined)
 		{
 			return obj_tiles.ti_air

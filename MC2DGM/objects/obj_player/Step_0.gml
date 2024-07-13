@@ -10,6 +10,8 @@ y += vsp;
 if(input_check_pressed("lclick"))
 {
 	
+
+	
 	var _item = ds_grid_get(global.inventory, currentItem-1, 0)
 	var _count = ds_grid_get(global.inventoryCount, currentItem-1, 0)
 	

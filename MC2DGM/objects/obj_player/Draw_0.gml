@@ -55,23 +55,31 @@ if(input_check("rclick"))
 	
 	var _ti = getTile(snapChunkPos(mouse_x-8), snapChunkPos(mouse_y-8))
 	
-	var _timeToBreak = _ti.hardness*60
+	
+	try
+	{
+		var _timeToBreak = _ti.hardness*60
 	
 	
 	//show_debug_message($"Mining at"
-	
-	if(_ti.hardness != 0)
-	{
-		draw_sprite(spr_gui_breaking, (breakTime/_timeToBreak)*8, snap(mouse_x-8), snap(mouse_y-8))
-		if(breakTime > _timeToBreak)
+
+		if(_ti.hardness != 0)
 		{
-			placeTile(obj_tiles.ti_air, mouse_x, mouse_y)
-			var _it = variable_instance_get(obj_tiles, _ti.drop)
-			addInventory(_it)
-			//ds_grid_set(global.inventory, 0, 0, _it)
-			show_debug_message(_it)
+			draw_sprite(spr_gui_breaking, (breakTime/_timeToBreak)*8, snap(mouse_x-8), snap(mouse_y-8))
+			if(breakTime > _timeToBreak)
+			{
+				placeTile(obj_tiles.ti_air, mouse_x, mouse_y, 1)
+				var _it = variable_instance_get(obj_tiles, _ti.drop)
+				addInventory(_it)
+				//ds_grid_set(global.inventory, 0, 0, _it)
+				show_debug_message(_it)
 			
+			}
 		}
+	}
+	catch(_exception)
+	{
+		
 	}
 
 
