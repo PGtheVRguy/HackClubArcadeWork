@@ -24,6 +24,7 @@ ds_grid_clear(global.inventory, 0)
 global.inventoryCount = ds_grid_create(ds_grid_width(global.inventory), ds_grid_height(global.inventory));
 
 
+
 #region effects
 
 _fxInvBlur = fx_create("_effect_recursive_blur");
@@ -37,3 +38,4 @@ layer_set_fx("effect", _fxInvBlur);
 
 #endregion
 
+pickedItem = 0

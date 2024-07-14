@@ -134,6 +134,67 @@ function addInventory(_item)
 	}
 	return false;
 }
+function removeInventory(_item)
+{
+	var _x = 0
+	var _y = 0
+	repeat(ds_grid_width(global.inventory) * ds_grid_height(global.inventory))
+	{
+		
+		
+		if(_x > ds_grid_width(global.inventory))
+		{
+			_x = 0
+			_y++;
+		}
+		
+		if(ds_grid_get(global.inventory,_x,_y) == _item)
+		{
+			if(ds_grid_get(global.inventoryCount, _x, _y) > 1)
+			{
+				ds_grid_set(global.inventoryCount, _x, _y, ds_grid_get(global.inventoryCount, _x, _y) - 1)
+			}
+			else
+			{
+				if(ds_grid_get(global.inventoryCount, _x, _y) == 1)
+				{
+					ds_grid_set(global.inventoryCount, _x, _y, 0)
+					ds_grid_set(global.inventory, _x, _y, 0)
+				}
+			}
+			
+		}
+		
+		
+		
+		
+		
+		_x++
+	}
+	return false;
+}
+function inventoryHas(_item)
+{
+	var _x = 0
+	var _y = 0
+	repeat(ds_grid_width(global.inventory) * ds_grid_height(global.inventory))
+	{
+		
+		
+		if(_x > ds_grid_width(global.inventory))
+		{
+			_x = 0
+			_y++;
+		}
+		
+		if(ds_grid_get(global.inventory,_x,_y) == _item)
+		{
+			return true
+		}
+		_x++
+	}
+	return false;
+}
 
 function isEven(_i)
 {
@@ -163,11 +224,33 @@ function mouseAt(x,y,radx,rady)
 {
 	var mx = mouseX()
 	var my = mouseY()
-	show_debug_message($"x:{mx} y:{my}")
+	//show_debug_message($"x:{mx} y:{my}")
 	draw_rectangle(x-radx, y-rady, x+radx, y+rady, true)
 	if (mx < x+radx) and (mx > x-radx) and (my > y-rady) and (my < y+rady)
 	{
 		return true
 	}
 	else{return false}
+}
+
+function craft(_item)
+{
+	show_debug_message(_item)
+	show_debug_message(array_length(_item))
+	var _i = 1
+	repeat(array_length(_item) - 1)
+	{
+		if(!inventoryHas(_item[_i]))
+		{
+			return false
+		}
+		_i++
+	}
+	_i = 1
+	repeat(array_length(_item) - 1)
+	{
+		removeInventory(_item[_i])
+		_i++
+	}
+	addInventory(_item[0])
 }
