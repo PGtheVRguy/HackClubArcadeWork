@@ -18,9 +18,11 @@ function generatePerlinChunk(_chunkX,_chunkY)
 
 	genRes = 20;
 
-	sandPercent = 40;
-	grassPercent = 60;
-	stonePercent = 80;
+	//40, 60, 80
+
+	sandPercent = 30;
+	grassPercent = 40;
+	stonePercent = 60;
 
 	tpX = 0
 	tpY = 0
@@ -42,10 +44,10 @@ function generatePerlinChunk(_chunkX,_chunkY)
 				_tile = obj_tiles.ti_grass
 				if(_t < stonePercent)
 				{
-					var _r = irandom_range(0, 10)
+					var _r = irandom_range(0, 300)
 					if(_r < 2)
 					{
-						placeTree(tpX+(_chunkX*256), tpY+(_chunkY*256))
+						placeTree((tpX*16)+(_chunkX*256), (tpY*16)+(_chunkY*256))
 					}
 				}
 			}
@@ -183,13 +185,15 @@ function map_value(_value, _current_lower_bound, _current_upper_bound, _desired_
 
 function placeTree(_x, _y)
 {
+	_x = _x
+	_y = _y
+	show_debug_message($"Placing tree at {_x},{_y}")
 	placeTile(obj_tiles.ti_log, _x, _y, 1)
-	placeTile(obj_tiles.ti_log, _x, _y-1, 2)
-	placeTile(obj_tiles.ti_log, _x, _y-2, 2)
-	placeTile(obj_tiles.ti_log, _x, _y-3, 2)
+	placeTile(obj_tiles.ti_log, _x, _y-1*16, 2)
+	placeTile(obj_tiles.ti_log, _x, _y-2*16, 2)
 	
-	placeTile(obj_tiles.ti_leaves, _x, _y-4, 2)
-	placeTile(obj_tiles.ti_leaves, _x+1, _y-4, 2)
-	placeTile(obj_tiles.ti_leaves, _x-1, _y-4, 2)
-	placeTile(obj_tiles.ti_leaves, _x, _y-5, 2)
+	placeTile(obj_tiles.ti_leaves, _x, _y-3*16, 2)
+	placeTile(obj_tiles.ti_leaves, _x+1*16, _y-3*16, 2)
+	placeTile(obj_tiles.ti_leaves, _x-1*16, _y-3*16, 2)
+	placeTile(obj_tiles.ti_leaves, _x, _y-4*16, 2)
 }

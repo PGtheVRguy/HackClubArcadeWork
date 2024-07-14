@@ -165,7 +165,7 @@ function renderChunk(_chunkX, _chunkY)
 }
 
 
-function placeTile(_tile, _x, _y, _layer = -1)
+function placeTile(_tile, _x, _y, _layer = -1, _buffer = false)
 {
 	var currentChunkX = int64(_x/256)
 	var currentChunkY = int64(_y/256)
@@ -233,14 +233,33 @@ function placeTile(_tile, _x, _y, _layer = -1)
 		show_debug_message(_c)
 		
 		ds_grid_set(_chunkLayer, _mx, _my, _tile)
-		
+		//global.unsucPlace = 0
+		if(_buffer = true)
+		{
+			instance_destroy();
+		}
 	}
 	catch(_exception)
 	{
+
+		if(_buffer = false)
+		{
+			instance_create_layer(_x, _y, layer, obj_bufferPlace,
+			{
+				_tile : _tile,
+				_layer: _layer
+			
+			})
+		}
+		
+		
+		
 		show_debug_message("tryign to place in chunks that dont exist!!!")
+		//placeTile(_tile, _x, _y, _layer)
 		var _c = "NOT REAL!"
 		var _mx = 0
 		var _my = 0
+		//global.unsucPlace++
 	}
 	
 	

@@ -52,7 +52,7 @@ function createTiles()
 	ti_leaves =
 	{
 		sprite: 7,
-		drop: 0,
+		drop: "it_unobainable",
 		hardness: 1,
 		name: "Leaves"
 	}
@@ -82,6 +82,20 @@ function createItems()
 		sprite: 1,
 		name: "Rock",
 		place: "ti_stone"
+		
+	}
+	it_log =
+	{
+		sprite: 1,
+		name: "Log Scrap",
+		place: "ti_log"
+		
+	}
+	it_unobainable =
+	{
+		sprite: 1,
+		name: "Unobtainable",
+		place: "ti_air"
 		
 	}
 }

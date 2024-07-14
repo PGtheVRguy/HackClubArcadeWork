@@ -39,3 +39,4 @@ layer_set_fx("effect", _fxInvBlur);
 #endregion
 
 pickedItem = 0
+global.unsucPlace = 0;

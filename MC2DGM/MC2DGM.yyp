@@ -96,6 +96,7 @@
   "resources":[
     {"id":{"name":"scribble_fallback_font","path":"fonts/scribble_fallback_font/scribble_fallback_font.yy",},},
     {"id":{"name":"input_controller_object","path":"objects/input_controller_object/input_controller_object.yy",},},
+    {"id":{"name":"obj_bufferPlace","path":"objects/obj_bufferPlace/obj_bufferPlace.yy",},},
     {"id":{"name":"obj_camera","path":"objects/obj_camera/obj_camera.yy",},},
     {"id":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},},
     {"id":{"name":"obj_tiles","path":"objects/obj_tiles/obj_tiles.yy",},},
