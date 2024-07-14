@@ -140,6 +140,19 @@ function renderChunk(_chunkX, _chunkY)
 			var _i2 = ds_grid_get(_ch2, _rx, _ry)
 			draw_sprite_part(spr_tileset, 0, (_i2.sprite)*16, 0, 16, 16, (_rx*16)+_chunkX*256, (_ry*16)+_chunkY*256)
 			
+			
+			if(ds_grid_get(_ch2, _rx, _ry).name != "Air")
+			{
+				var _t = getTile((_rx*16)+_chunkX*256, ((_ry*16)+_chunkY*256)-16, 2)
+				if(_t = obj_tiles.ti_air)
+				{
+					//show_debug_message("AH")
+					draw_sprite_ext(spr_shadow, 0, (_rx*16)+_chunkX*256, ((_ry*16)+_chunkY*256)-16, 1, 1, 0, -1, 0.45)
+					
+				}
+				draw_sprite_ext(spr_shadow, 0, (_rx*16)+_chunkX*256, ((_ry*16)+_chunkY*256)-16, 1, 1, 0, -1, 0.45)
+			}
+			
 			//var _i = ds_grid_get(_ch2, _rx, _ry)
 			//draw_sprite_part(spr_tileset, 0, (_i.sprite)*16, 0, 16, 16, (_rx*16)+_chunkX*256, (_ry*16)+_chunkY*256)
 			
@@ -370,19 +383,23 @@ function getTile(_x, _y, _layer = -1)
 		{
 			_my -= 1
 		}*/
-		
-		var _l = 2
-		repeat(2)
+		if(_layer = -1)
 		{
-			if(ds_grid_get(_c[_l], _mx, _my).name == "Air")
+			var _l = 2
+			repeat(2)
 			{
-				_l--
+				if(ds_grid_get(_c[_l], _mx, _my).name == "Air")
+				{
+					_l--
 				
+				}
+				//show_debug_message(ds_grid_get(_c[_l], _mx, _my))
 			}
-			show_debug_message(ds_grid_get(_c[_l], _mx, _my))
 		}
-		
-		
+		else
+		{
+			var _l = _layer
+		}
 		
 		var _ret = ds_grid_get(_c[_l], _mx, _my)
 		if(_ret = undefined)

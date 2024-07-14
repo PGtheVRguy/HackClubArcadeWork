@@ -36,3 +36,4 @@ fx_set_parameter(_fxInvBlur, "g_RecursiveBlurGamma", 0);
 layer_set_fx("effect", _fxInvBlur);
 
 #endregion
+

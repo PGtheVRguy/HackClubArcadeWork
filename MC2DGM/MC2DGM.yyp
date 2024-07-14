@@ -572,6 +572,7 @@
     {"id":{"name":"spr_gui_outline","path":"sprites/spr_gui_outline/spr_gui_outline.yy",},},
     {"id":{"name":"spr_items","path":"sprites/spr_items/spr_items.yy",},},
     {"id":{"name":"spr_player","path":"sprites/spr_player/spr_player.yy",},},
+    {"id":{"name":"spr_shadow","path":"sprites/spr_shadow/spr_shadow.yy",},},
     {"id":{"name":"spr_tileset","path":"sprites/spr_tileset/spr_tileset.yy",},},
     {"id":{"name":"ti_main","path":"tilesets/ti_main/ti_main.yy",},},
   ],

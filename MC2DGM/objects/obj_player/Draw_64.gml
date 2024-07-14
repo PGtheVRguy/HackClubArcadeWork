@@ -35,10 +35,39 @@ if(invOpen)
 {
 	#region crafting
 	
-	for(i = 0; i < 10; i++)
+
+	
+	for(i = 0; i < ds_list_size(global.recipeList); i++)
 	{
 		var _fr = isEven(i)
-		draw_sprite(spr_gui_craftSel, _fr, ((guiWidth()/2)+8), (32+16) + ((sprite_get_height(spr_gui_craftSel) - 1)*i))
+		
+		var _itPosX = ((guiWidth()/2)+8)
+		var _itPosY = (32+16) + ((sprite_get_height(spr_gui_craftSel) - 1)*i)
+		
+		
+		var _wid = sprite_get_width(spr_gui_craftSel)
+		var _hei = sprite_get_height(spr_gui_craftSel)
+		
+		
+		draw_sprite(spr_gui_craftSel, _fr, _itPosX, _itPosY)
+		
+		
+		if(mouseAt(_itPosX+(_wid/2), _itPosY+(_hei/2), _wid/2, _hei/2))
+		{
+			draw_sprite(spr_gui_craftSel, 2, _itPosX, _itPosY)
+		}
+		
+		
+		
+		var _recipe = ds_list_find_value(global.recipeList, i)
+		draw_sprite(spr_items, _recipe[0].sprite, _itPosX+10, _itPosY+8)
+		var _f = 1
+		repeat(array_length(_recipe)-1)
+		{
+			draw_sprite(spr_items, _recipe[_f].sprite, _itPosX+sprite_get_width(spr_gui_craftSel)-(20*_f), _itPosY+8)
+			_f++
+		}
+		
 	}
 	
 	#endregion
@@ -46,7 +75,7 @@ if(invOpen)
 	
 	
 	
-	draw_sprite(spr_gui_inv,0, guiWidth()/2, 32)
+	//draw_sprite(spr_gui_inv,0, guiWidth()/2, 32)
 	
 	var _x = guiWidth()/2
 	var _y = 32

@@ -72,6 +72,13 @@ function createItems()
 	}
 }
 
+function createRecipes()
+{
+	
+	//RECIPES ARE ARRAYS! FIRST ITEM IS THE OUTPUT, THE REST ARE INPUTS!
+	re_sand = [it_sand, it_dirt, it_stone]//DEBUG
+	re_stone = [it_stone, it_dirt]//DEBUG
+}
 
 
 function snap(_val)
@@ -138,4 +145,29 @@ function isEven(_i)
 	{
 		return true
 	}
+}
+
+function mouseX()
+{
+	var _mx = device_mouse_x_to_gui(0)
+	return _mx
+}
+function mouseY()
+{
+	var _my = device_mouse_y_to_gui(0)
+	return _my
+}
+
+
+function mouseAt(x,y,radx,rady) 
+{
+	var mx = mouseX()
+	var my = mouseY()
+	show_debug_message($"x:{mx} y:{my}")
+	draw_rectangle(x-radx, y-rady, x+radx, y+rady, true)
+	if (mx < x+radx) and (mx > x-radx) and (my > y-rady) and (my < y+rady)
+	{
+		return true
+	}
+	else{return false}
 }
