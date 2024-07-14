@@ -34,5 +34,6 @@ if(input_check_pressed("lclick") && (!invOpen))
 		
 	}
 }
-ds_grid_set(global.inventory, 3, 3, obj_tiles.ti_dirt)
-ds_grid_set(global.inventoryCount, 3, 3, 1)
+
+//ds_grid_set(global.inventory, 3, 3, obj_tiles.ti_dirt)
+//ds_grid_set(global.inventoryCount, 3, 1, 1)

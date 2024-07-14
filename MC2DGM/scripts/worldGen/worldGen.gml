@@ -40,6 +40,14 @@ function generatePerlinChunk(_chunkX,_chunkY)
 			{
 		
 				_tile = obj_tiles.ti_grass
+				if(_t < stonePercent)
+				{
+					var _r = irandom_range(0, 10)
+					if(_r < 2)
+					{
+						placeTree(tpX+(_chunkX*256), tpY+(_chunkY*256))
+					}
+				}
 			}
 			if(_t > stonePercent)
 			{
@@ -171,4 +179,17 @@ function perlin_noise(_x, _y = 100.213, _z = 450.4215) {
 	
 function map_value(_value, _current_lower_bound, _current_upper_bound, _desired_lowered_bound, _desired_upper_bound) {
 	return (((_value - _current_lower_bound) / (_current_upper_bound - _current_lower_bound)) * (_desired_upper_bound - _desired_lowered_bound)) + _desired_lowered_bound;
+}
+
+function placeTree(_x, _y)
+{
+	placeTile(obj_tiles.ti_log, _x, _y, 1)
+	placeTile(obj_tiles.ti_log, _x, _y-1, 2)
+	placeTile(obj_tiles.ti_log, _x, _y-2, 2)
+	placeTile(obj_tiles.ti_log, _x, _y-3, 2)
+	
+	placeTile(obj_tiles.ti_leaves, _x, _y-4, 2)
+	placeTile(obj_tiles.ti_leaves, _x+1, _y-4, 2)
+	placeTile(obj_tiles.ti_leaves, _x-1, _y-4, 2)
+	placeTile(obj_tiles.ti_leaves, _x, _y-5, 2)
 }

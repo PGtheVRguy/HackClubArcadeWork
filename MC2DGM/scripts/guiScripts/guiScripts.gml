@@ -30,6 +30,10 @@ function drawHotbar(_ci)
 			draw_sprite(spr_items, _it.sprite, _x, _y)
 			draw_text(_x,_y,_ic)
 		}
+		if(mouseAt(_x, _y, 7, 7) && (obj_player.invOpen))
+		{
+			obj_player.pickedItem = inventoryManagement(_rep, 0, obj_player.pickedItem)
+		}
 		
 		_rep++
 	}
@@ -42,4 +46,43 @@ function drawHotbar(_ci)
 	}*/
 	
 	
+}
+
+function inventoryManagement(_cx, _cy, pickedItem)
+{
+	if(input_check_pressed("lclick"))
+	{
+		
+		if(pickedItem = 0)
+		{
+			var _it = ds_grid_get(global.inventory, _cx, _cy)
+			if(ds_grid_get(global.inventoryCount, _cx, _cy) = 1)
+			{
+				ds_grid_set(global.inventory, _cx, _cy, 0)
+				ds_grid_set(global.inventoryCount, _cx, _cy, 0)
+			}
+			else
+			{
+				ds_grid_set(global.inventoryCount, _cx, _cy, ds_grid_get(global.inventoryCount, _cx, _cy) - 1)
+			}
+			pickedItem = _it
+		}
+		else
+		{
+			if(ds_grid_get(global.inventory, _cx, _cy) = pickedItem)
+			{
+				ds_grid_set(global.inventoryCount, _cx, _cy, ds_grid_get(global.inventoryCount, _cx, _cy) +1)
+				pickedItem = 0
+			}
+			else
+			{
+				ds_grid_set(global.inventory, _cx, _cy, pickedItem)
+				ds_grid_set(global.inventoryCount, _cx, _cy, 1)
+				
+				pickedItem = 0
+			}
+		}
+
+	}
+	return pickedItem
 }

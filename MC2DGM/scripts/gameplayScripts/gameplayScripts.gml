@@ -42,6 +42,20 @@ function createTiles()
 		hardness: 3,
 		name: "Stone"
 	}
+	ti_log =
+	{
+		sprite: 6,
+		drop: "it_log",
+		hardness: 2,
+		name: "Log"
+	}
+	ti_leaves =
+	{
+		sprite: 7,
+		drop: 0,
+		hardness: 1,
+		name: "Leaves"
+	}
 	
 }
 
