@@ -25,19 +25,24 @@ print(TOKENID)
 #IF YOU ARE USING THIS REPO FOR ANYTHING IN THE FUTURE, KEEP YOUR TOKEN.TXT ONLY TO YOURSELF!!
 # There are bots here that scrape OpenAI tokens!!
 
+def split_string_to_chunks(long_string, chunk_size=2000):
+    # List comprehension to create chunks
+    return [long_string[i:i+chunk_size] for i in range(0, len(long_string), chunk_size)]
 
 def generate_voice_line(text, output_filename="ai.wav"):
     print("voice")
 
 async def askAI(prompt, channel):
     async with channel.typing():
+
+        prompt = prompt.replace("doug", "")
         print("Gotten prompt: " + prompt)
         response = client.chat.completions.create(
             model="gpt-4o",
             #response_format={"type": "json_object"},
             messages=[
                 {"role": "system", "content": rules},
-                {"role": "user", "content": "Who os DougDoug?"}
+                {"role": "user", "content": prompt}
             ]
         )
         print(response.choices[0].message.content)
@@ -61,6 +66,8 @@ def sayTest(prompt):
 
 @bot.event
 async def on_ready():
+    activity = discord.Game(name="with my balls", type=3)
+    await bot.change_presence(status=discord.Status.idle, activity=activity)
     print("Hello! Bot is ready uwu")
 
 @bot.event
@@ -71,7 +78,11 @@ async def on_message(message):
     # Check if the message contains the phrase "doug"
     if "doug" in message.content.lower():
         response = await askAI(message.content, message.channel)
-        await message.channel.send(response)
+        chunks = split_string_to_chunks(response)
+
+
+        for i, chunk in enumerate(chunks):
+            await message.channel.send(chunk)
     '''if message.content.lower() == "dogie":
         # Get the role named "new role"
         role = discord.utils.get(message.guild.roles, name="AIBot")
