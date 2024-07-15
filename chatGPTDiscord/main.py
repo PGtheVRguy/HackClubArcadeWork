@@ -1,16 +1,29 @@
 #from TTS.tts.models.tortoise import Tortoise
 
-import openai
+from openai import OpenAI
 from gtts import gTTS
 import discord
 import os
-import variables as v
+#import variables as v
 from discord.ext import commands
 
 
 bot = commands.Bot(command_prefix="!", intents=discord.Intents.all())
 
+#openai.my_api_key = open('token.txt', 'r')
+apiKey = open('token.txt', 'r').read()
+print(apiKey)
+client = OpenAI(api_key= apiKey)
 
+with open('prompt.txt', 'r') as file:
+    rules = file.read().replace('\n', '')
+print(rules)
+#client.api_key = apiKey
+
+TOKENID = open('discordToken.txt', 'r').read()
+print(TOKENID)
+#IF YOU ARE USING THIS REPO FOR ANYTHING IN THE FUTURE, KEEP YOUR TOKEN.TXT ONLY TO YOURSELF!!
+# There are bots here that scrape OpenAI tokens!!
 
 
 def generate_voice_line(text, output_filename="ai.wav"):
@@ -19,12 +32,23 @@ def generate_voice_line(text, output_filename="ai.wav"):
 async def askAI(prompt, channel):
     async with channel.typing():
         print("Gotten prompt: " + prompt)
-        response = rtx_api.send_message(prompt)
+        response = client.chat.completions.create(
+            model="gpt-4o",
+            #response_format={"type": "json_object"},
+            messages=[
+                {"role": "system", "content": rules},
+                {"role": "user", "content": "Who os DougDoug?"}
+            ]
+        )
+        print(response.choices[0].message.content)
+        clippedResponse = response.choices[0].message.content
+        #response = chat.choices[0].message.content
+        #response = rtx_api.send_message(prompt)
         #response = response.replace(" gh", " fuck")
         #response = response.replace(" GH", " FUCK")
         #response = response.replace(" Gh", " Fuck")
-        print("response: " + response)
-        return response
+        #print("response: " + response)
+        return clippedResponse
 
 
 def sayTest(prompt):
@@ -48,7 +72,7 @@ async def on_message(message):
     if "doug" in message.content.lower():
         response = await askAI(message.content, message.channel)
         await message.channel.send(response)
-    if message.content.lower() == "dogie":
+    '''if message.content.lower() == "dogie":
         # Get the role named "new role"
         role = discord.utils.get(message.guild.roles, name="AIBot")
         if role:
@@ -56,7 +80,7 @@ async def on_message(message):
             await message.author.add_roles(role)
             await message.channel.send("Hey I'm Doug Doug")
         else:
-            await message.channel.send("I'm not Doug Doug")
+            await message.channel.send("I'm not Doug Doug")'''
 
 
 '''
@@ -80,4 +104,4 @@ async def join(ctx):
         await ctx.send("You are not in a voice channel.")
 '''
 
-bot.run(v.TOKEN_ID)
+bot.run(TOKENID)
