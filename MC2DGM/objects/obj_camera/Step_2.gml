@@ -1,7 +1,10 @@
 
 
-x = obj_player.x
-y = obj_player.y
+x = following.x
+y = following.y
+
+x = int64(x)
+y = int64(y)
 
 if(keyboard_check(vk_add))
 {

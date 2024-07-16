@@ -55,6 +55,19 @@ function generatePerlinChunk(_chunkX,_chunkY)
 			{
 				//ds_grid_set(_grid1,tpX,tpY,obj_tiles.ti_grass)
 				ds_grid_set(_grid2,tpX,tpY,obj_tiles.ti_stone)
+				var _r = irandom_range(0,300)
+				if(_r < 5)
+				{
+					ds_grid_set(_grid2,tpX,tpY,obj_tiles.ti_ironOre)
+				}
+				if(_r < 2)
+				{
+					ds_grid_set(_grid2,tpX,tpY,obj_tiles.ti_goldOre)
+				}
+				if(_r < 1)
+				{
+					ds_grid_set(_grid2,tpX,tpY,obj_tiles.ti_diamondOre)
+				}
 			}
 			else
 			{

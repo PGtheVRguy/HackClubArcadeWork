@@ -49,12 +49,40 @@ function createTiles()
 		hardness: 2,
 		name: "Log"
 	}
+	ti_wood =
+	{
+		sprite: 8,
+		drop: "it_wood",
+		hardness: 2,
+		name: "Wood Planks"
+	}
 	ti_leaves =
 	{
 		sprite: 7,
 		drop: "it_unobainable",
 		hardness: 1,
 		name: "Leaves"
+	}
+	ti_ironOre =
+	{
+		sprite: 9,
+		drop: "it_iron",
+		hardness: 2,
+		name: "Iron Ore"
+	}
+	ti_goldOre =
+	{
+		sprite: 10,
+		drop: "it_gold",
+		hardness: 3,
+		name: "Gold Ore"
+	}
+	ti_diamondOre =
+	{
+		sprite: 11,
+		drop: "it_diamond",
+		hardness: 4,
+		name: "Diamond Ore"
 	}
 	
 }
@@ -86,10 +114,61 @@ function createItems()
 	}
 	it_log =
 	{
-		sprite: 1,
+		sprite: 3,
 		name: "Log Scrap",
 		place: "ti_log"
 		
+	}
+	it_wood =
+	{
+		sprite: 4,
+		name: "Wood Planks",
+		place: "ti_wood"
+		
+	}
+	it_iron =
+	{
+		sprite: 8,
+		name: "Iron",
+		place: "ti_air"
+		
+	}
+	it_gold =
+	{
+		sprite: 9,
+		name: "Gold",
+		place: "ti_air"
+		
+	}
+	it_diamond =
+	{
+		sprite: 10,
+		name: "Diamond",
+		place: "ti_air"
+		
+	}
+	it_ironPick =
+	{
+		sprite: 5,
+		name: "Iron Pickaxe",
+		place: "ti_air",
+		tool: 1.5
+		
+	}
+	it_goldPick =
+	{
+		sprite: 6,
+		name: "Gold Pickaxe",
+		place: "ti_air",
+		tool: 2
+		
+	}
+	it_diamondPick =
+	{
+		sprite: 7,
+		name: "Diamond Pickaxe",
+		place: "ti_air",
+		tool: 2.5
 	}
 	it_unobainable =
 	{
@@ -104,8 +183,12 @@ function createRecipes()
 {
 	
 	//RECIPES ARE ARRAYS! FIRST ITEM IS THE OUTPUT, THE REST ARE INPUTS!
-	re_sand = [it_sand, it_dirt, it_stone]//DEBUG
-	re_stone = [it_stone, it_dirt]//DEBUG
+	//re_sand = [it_sand, it_dirt, it_stone]//DEBUG
+	//re_stone = [it_stone, it_dirt]//DEBUG
+	re_wood = [it_wood, it_log]
+	re_ironPick = [it_ironPick, it_wood, it_iron, it_iron]
+	re_goldPick = [it_goldPick, it_wood, it_gold, it_gold]
+	re_diamondPick = [it_diamondPick, it_wood, it_diamond, it_diamond]
 }
 
 
@@ -129,6 +212,12 @@ function snapChunkPos(_val)
 
 function addInventory(_item)
 {
+	
+	if(_item = obj_tiles.it_unobainable)
+	{
+		return false
+	}
+	
 	var _x = 0
 	var _y = 0
 	repeat(ds_grid_width(global.inventory) * ds_grid_height(global.inventory))
@@ -253,7 +342,7 @@ function mouseAt(x,y,radx,rady)
 	var mx = mouseX()
 	var my = mouseY()
 	//show_debug_message($"x:{mx} y:{my}")
-	draw_rectangle(x-radx, y-rady, x+radx, y+rady, true)
+	//draw_rectangle(x-radx, y-rady, x+radx, y+rady, true)
 	if (mx < x+radx) and (mx > x-radx) and (my > y-rady) and (my < y+rady)
 	{
 		return true

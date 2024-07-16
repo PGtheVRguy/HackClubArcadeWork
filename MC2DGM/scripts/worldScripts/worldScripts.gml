@@ -150,7 +150,7 @@ function renderChunk(_chunkX, _chunkY)
 					draw_sprite_ext(spr_shadow, 0, (_rx*16)+_chunkX*256, ((_ry*16)+_chunkY*256)-16, 1, 1, 0, -1, 0.45)
 					
 				}
-				draw_sprite_ext(spr_shadow, 0, (_rx*16)+_chunkX*256, ((_ry*16)+_chunkY*256)-16, 1, 1, 0, -1, 0.45)
+				draw_sprite_ext(spr_shadow, 0, (_rx*16)+_chunkX*256, ((_ry*16)+_chunkY*256), 1, 1, 0, -1, 0.45)
 			}
 			
 			//var _i = ds_grid_get(_ch2, _rx, _ry)

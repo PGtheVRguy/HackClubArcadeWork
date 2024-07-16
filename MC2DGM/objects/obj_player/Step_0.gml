@@ -25,12 +25,17 @@ if(input_check_pressed("lclick") && (!invOpen))
 	if(_item != 0)
 	{
 		var _pl = variable_instance_get(obj_tiles, _item.place)
+		if(_pl != obj_tiles.ti_air)
+		{
+			
+		
 		ds_grid_set(global.inventoryCount, currentItem-1, 0, _count-1)
 		if(_count-1 = 0)
 		{
 			ds_grid_set(global.inventory, currentItem-1, 0, 0)
 		}
 		placeTile(_pl,mouse_x,mouse_y)
+		}
 		
 	}
 }

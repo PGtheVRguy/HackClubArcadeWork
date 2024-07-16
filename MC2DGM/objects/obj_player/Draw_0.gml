@@ -51,11 +51,19 @@ if(snap(mouse_y-8) != lastCursorPos[1])
 
 if(input_check("rclick") && (!invOpen))
 {
-	breakTime++
 	
+	var _item = ds_grid_get(global.inventory, currentItem-1, 0)
 	var _ti = getTile(snapChunkPos(mouse_x-8), snapChunkPos(mouse_y-8))
-	
-	
+	var _ts = 1
+	try
+	{
+		_ts = _item.tool
+	}
+	catch(_exception)
+	{
+		//idk man
+	}
+	breakTime += 1*_ts
 	try
 	{
 		var _timeToBreak = _ti.hardness*60
