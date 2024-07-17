@@ -35,7 +35,7 @@ def generate_voice_line(text, output_filename="ai.wav"):
 async def askAI(prompt, channel):
     async with channel.typing():
 
-        prompt = prompt.replace("doug", "")
+        #prompt = prompt.replace("doug", "")
         print("Gotten prompt: " + prompt)
         response = client.chat.completions.create(
             model="gpt-4o",
@@ -66,7 +66,7 @@ def sayTest(prompt):
 
 @bot.event
 async def on_ready():
-    activity = discord.Game(name="with my balls", type=3)
+    activity = discord.Game(name="silly games", type=3)
     await bot.change_presence(status=discord.Status.idle, activity=activity)
     print("Hello! Bot is ready uwu")
 
