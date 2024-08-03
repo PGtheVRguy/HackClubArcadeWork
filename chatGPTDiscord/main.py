@@ -94,10 +94,12 @@ async def on_message(message):
             eventKey = str.replace(response, "[tba][", "")
             eventKey = str.replace(eventKey, "]", "")
             print(eventKey)
-            matches = tba.event_matches(eventKey)
+            matches = tba.event(eventKey)
             print(matches)
+            matches = str(matches)
+            print('Converted matches to a string!')
             newResponse = "Hey can you summarize the following FRC match! This is the events data from tba: " + str(matches)
-            response = askAI(newResponse, message.channel)
+            response = await askAI(newResponse, message.channel)
         chunks = split_string_to_chunks(response)
 
 
