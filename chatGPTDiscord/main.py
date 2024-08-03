@@ -7,7 +7,7 @@ import os
 #import variables as v
 from discord.ext import commands
 
-
+character = "fortnite jonesy"
 bot = commands.Bot(command_prefix="!", intents=discord.Intents.all())
 
 #openai.my_api_key = open('token.txt', 'r')
@@ -16,8 +16,16 @@ print(apiKey)
 client = OpenAI(api_key= apiKey)
 
 with open('prompt.txt', 'r') as file:
-    rules = file.read().replace('\n', '')
+    generalRules = file.read().replace('\n', '')
+rules = "0. You are the character " + character + "\n" + generalRules
+with open('characterRules.txt', 'r') as file:
+    characterRules = file.read().replace('\n', '')
+rules = rules + "\n" + characterRules + "\n You also have a few members you are allowed to tag! These are "
+with open('members.txt', 'r') as file:
+    members = file.read().replace('\n', '')
+rules = rules + members
 print(rules)
+
 #client.api_key = apiKey
 
 TOKENID = open('discordToken.txt', 'r').read()
@@ -64,11 +72,12 @@ def sayTest(prompt):
     print("mp3 saved, playing...")
     os.system("start audio.mp3")
 
+playingText = "as " + character
 @bot.event
 async def on_ready():
-    activity = discord.Game(name="silly games", type=3)
+    activity = discord.Game(name="as " + character, type=3)
     await bot.change_presence(status=discord.Status.idle, activity=activity)
-    print("Hello! Bot is ready uwu")
+    print("Hello! Bot is ready!")
 
 @bot.event
 async def on_message(message):
@@ -76,7 +85,7 @@ async def on_message(message):
         return  # Ignore messages sent by the bot itself
 
     # Check if the message contains the phrase "doug"
-    if "doug" in message.content.lower():
+    if character in message.content.lower():
         response = await askAI(message.content, message.channel)
         chunks = split_string_to_chunks(response)
 
