@@ -1,0 +1,6 @@
+{
+    "name": "Settings",
+    "icon": "icon.png",
+    "desc": "Showcases the settings uwu",
+    "prgm": "settings/main.py"
+}

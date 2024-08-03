@@ -1,0 +1,6 @@
+{
+    "name": "Rambley",
+    "icon": "icon.png",
+    "desc": "He likes trains :3",
+    "prgm": "rambley/main.py" 
+}

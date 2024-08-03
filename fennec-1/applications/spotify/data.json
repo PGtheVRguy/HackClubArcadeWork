@@ -1,0 +1,6 @@
+{
+    "name": "Spotify",
+    "icon": "icon.png",
+    "desc": "A custom built wrapper to showcase various Spotify data",
+    "prgm": "spotify/main.py" 
+}

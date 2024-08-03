@@ -1,0 +1,6 @@
+{
+    "name": "Test",
+    "icon": "icon.png",
+    "desc": "Test software, do not run",
+    "prgm": "test/main.py" 
+}

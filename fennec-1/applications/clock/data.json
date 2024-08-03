@@ -1,0 +1,6 @@
+{
+    "name": "Clock",
+    "icon": "icon.png",
+    "desc": "All watches need some form of clock",
+    "prgm": "clock/main.py" 
+}
