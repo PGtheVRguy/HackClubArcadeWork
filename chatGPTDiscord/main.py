@@ -6,8 +6,10 @@ import discord
 import os
 #import variables as v
 from discord.ext import commands
+import tbapy
 
-character = "fortnite jonesy"
+tba = tbapy.TBA("DTMnL4hL8CpDwSj65VEJWEy5q9nE1yNZbFQKL1rvMVo9fBZt1Vwo8Ui0vGnhRxPC")
+character = "doug"
 bot = commands.Bot(command_prefix="!", intents=discord.Intents.all())
 
 #openai.my_api_key = open('token.txt', 'r')
@@ -87,6 +89,15 @@ async def on_message(message):
     # Check if the message contains the phrase "doug"
     if character in message.content.lower():
         response = await askAI(message.content, message.channel)
+        if("[tba]" in response):
+            print('tba')
+            eventKey = str.replace(response, "[tba][", "")
+            eventKey = str.replace(eventKey, "]", "")
+            print(eventKey)
+            matches = tba.event_matches(eventKey)
+            print(matches)
+            newResponse = "Hey can you summarize the following FRC match! This is the events data from tba: " + str(matches)
+            response = askAI(newResponse, message.channel)
         chunks = split_string_to_chunks(response)
 
 
