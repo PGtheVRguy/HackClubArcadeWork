@@ -7,10 +7,17 @@ import os
 #import variables as v
 from discord.ext import commands
 import tbapy
+import time
 
 tba = tbapy.TBA("DTMnL4hL8CpDwSj65VEJWEy5q9nE1yNZbFQKL1rvMVo9fBZt1Vwo8Ui0vGnhRxPC")
 character = "doug"
 bot = commands.Bot(command_prefix="!", intents=discord.Intents.all())
+
+start_time = time.time()
+
+questions = 0
+
+pastQuestionsAndAnswers = []
 
 #openai.my_api_key = open('token.txt', 'r')
 apiKey = open('token.txt', 'r').read()
@@ -25,7 +32,7 @@ with open('characterRules.txt', 'r') as file:
 rules = rules + "\n" + characterRules + "\n You also have a few members you are allowed to tag! These are "
 with open('members.txt', 'r') as file:
     members = file.read().replace('\n', '')
-rules = rules + members
+rules = rules + members + " remember. These users arent refered to 1:1 to these names! "
 print(rules)
 
 #client.api_key = apiKey
@@ -43,10 +50,12 @@ def generate_voice_line(text, output_filename="ai.wav"):
     print("voice")
 
 async def askAI(prompt, channel):
+    global questions
     async with channel.typing():
 
         #prompt = prompt.replace("doug", "")
         print("Gotten prompt: " + prompt)
+        questions += 1
         response = client.chat.completions.create(
             model="gpt-4o",
             #response_format={"type": "json_object"},
@@ -57,6 +66,8 @@ async def askAI(prompt, channel):
         )
         print(response.choices[0].message.content)
         clippedResponse = response.choices[0].message.content
+        pastQuestionsAndAnswers.append(prompt)
+        pastQuestionsAndAnswers.append(response)
         #response = chat.choices[0].message.content
         #response = rtx_api.send_message(prompt)
         #response = response.replace(" gh", " fuck")
@@ -74,6 +85,12 @@ def sayTest(prompt):
     print("mp3 saved, playing...")
     os.system("start audio.mp3")
 
+def callUptime():
+    current_time = time.time()
+    uptime_seconds = int(current_time - start_time)
+    uptime_str = time.strftime('%H:%M:%S', time.gmtime(uptime_seconds))
+    return uptime_str
+
 playingText = "as " + character
 @bot.event
 async def on_ready():
@@ -83,23 +100,39 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
+    global questions
     if message.author == bot.user:
         return  # Ignore messages sent by the bot itself
 
     # Check if the message contains the phrase "doug"
     if character in message.content.lower():
-        response = await askAI(message.content, message.channel)
+        #connector = " And here is a log of your previously conversations but use ONLY IF NEEDED Do not refer to this as logs purely only use as a memory.: "
+        #+ connector + str(pastQuestionsAndAnswers)
+        # Debug later, this is for a memory log
+        response = await askAI(message.content , message.channel)
         if("[tba]" in response):
             print('tba')
-            eventKey = str.replace(response, "[tba][", "")
-            eventKey = str.replace(eventKey, "]", "")
+            st = response.split(',')
+            eventKey = st[1]
             print(eventKey)
             matches = tba.event(eventKey)
             print(matches)
             matches = str(matches)
             print('Converted matches to a string!')
-            newResponse = "Hey can you summarize the following FRC match! This is the events data from tba: " + str(matches)
+            teamMatches = ""
+            rankings = tba.event_rankings(st[1])
+            if(st[2] != 0):
+                teamMatches = tba.team_matches(int(st[2]), st[1])
+
+                teamMatches = "But do not give me any website, location, webcasts/website, etc. Please give an analysis  and please include any red/yellow cards given " + st[2] + "s matches which are: " + str(teamMatches) + " Please also include the specific alliances ending rank and ENSURE THE MATCHES ARE IN ORDER. Its Quals, Semifinals, then finals"
+
+            newResponse = "Hey can you summarize the following FRC match! This is the events data from tba: " + str(matches) + " and here are the rankings: " + str(rankings) + teamMatches
             response = await askAI(newResponse, message.channel)
+        if("[uptime]" in response):
+            response = "Current uptime: " + callUptime()
+        if("[questions]" in response):
+            response = "You people have asked me " + str(questions) + " questions!"
+
         chunks = split_string_to_chunks(response)
 
 
