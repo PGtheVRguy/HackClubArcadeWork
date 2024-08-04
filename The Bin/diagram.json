@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "author": "The Bin - Hack Club",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-pi-pico-w", "id": "pico", "top": -12.85, "left": 13.15, "attrs": {} },
+    {
+      "type": "board-ssd1306",
+      "id": "board-ssd1306-0",
+      "top": 108.74,
+      "left": 115.43,
+      "attrs": {}
+    },
+    { "type": "wokwi-ds1307", "id": "wokwi-ds1307-0", "top": 215.4, "left": -28.7, "attrs": {} },
+    { "type": "wokwi-ky-040", "id": "wokwi-ky-040-0", "top": 222.5, "left": 143.2, "attrs": {} }
+  ],
+  "connections": [
+    [ "pico:GP0", "$serialMonitor:RX", "", [] ],
+    [ "pico:GP1", "$serialMonitor:TX", "", [] ],
+    [ "pico:GND.2", "board-ssd1306-0:GND", "black", [ "h-34.85", "v-108.85", "h182.4" ] ],
+    [ "pico:3V3_EN", "board-ssd1306-0:VCC", "red", [ "v-41.65", "h90.11" ] ],
+    [ "board-ssd1306-0:SCL", "pico:GP27", "green", [ "v0" ] ],
+    [ "pico:GP26", "board-ssd1306-0:SDA", "green", [ "h105.91", "v-48" ] ],
+    [ "wokwi-ds1307-0:GND", "pico:GND.3", "black", [ "h0" ] ],
+    [ "wokwi-ds1307-0:SDA", "pico:GP8", "green", [ "v-77.1", "h9.6", "v-76.8" ] ],
+    [ "wokwi-ds1307-0:SCL", "pico:GP9", "green", [ "h-9.6", "v-153.8" ] ],
+    [ "pico:3V3_EN", "wokwi-ds1307-0:5V", "red", [ "h-143.69", "v211.2" ] ]
+  ],
+  "dependencies": {}
+}
